@@ -68,10 +68,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         fab_setting = (FloatingActionButton) findViewById(R.id.fab_setting);
         fab_setting.setOnClickListener(this);
+        //默认隐藏
+        fab_setting.setVisibility(View.GONE);
         mTabLayout = (TabLayout) findViewById(R.id.mTabLayout);
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         //预加载
         mViewPager.setOffscreenPageLimit(mFragment.size());
+
+        //mViewPager滑动监听
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0){
+                    fab_setting.setVisibility(View.GONE);
+                }else {
+                    fab_setting.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         //设置适配器
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             //选中的item
