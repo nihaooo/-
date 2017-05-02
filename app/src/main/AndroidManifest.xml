@@ -24,7 +24,8 @@
         <!-- 主页-->
         <activity android:name=".MainActivity"/>
         <!-- 引导页-->
-        <activity android:name=".utils.GuideActivity"/>
+        <activity android:name=".ui.GuideActivity"
+                  android:theme="@style/NoActivityFullscreen"/>
     </application>
 
 </manifest>
