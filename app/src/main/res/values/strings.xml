@@ -2,4 +2,17 @@
     <string name="app_name">ImoocTestOne</string>
     <string name="text_setting">设置</string>
     <string name="pager_three">进入主页</string>
+    <string name="et_username">用户名</string>
+    <string name="et_userpass">密码</string>
+    <string name="btn_login">登录</string>
+    <string name="btn_register">注册</string>
+    <string name="register_desc">简介</string>
+    <string name="register_email">邮箱</string>
+    <string name="regiser_hint">注册成功需要前往邮箱验证，否则无法登陆</string>
+    <string name="register_username">用户名</string>
+    <string name="register_years">年龄</string>
+    <string name="register_man">男</string>
+    <string name="register_woman">女</string>
+    <string name="register_pass">密码</string>
+    <string name="register_repass">再输一次</string>
 </resources>

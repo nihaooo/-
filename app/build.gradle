@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "explame.com.imooctestone"
         minSdkVersion 15
@@ -28,4 +29,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //TabLayout
     compile 'com.android.support:design:25.2.0'
+    compile 'cn.bmob.android:bmob-sdk:3.4.5'
+    compile 'cn.bmob.android:http-legacy:1.0'
+
 }
