@@ -21,7 +21,8 @@
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/et_userpass"/>
+        android:hint="@string/et_userpass"
+        android:inputType="numberPassword"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +31,7 @@
         android:orientation="vertical">
 
         <CheckBox
+            android:id="@+id/keep_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

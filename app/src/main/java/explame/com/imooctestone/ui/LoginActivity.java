@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import cn.bmob.v3.listener.SaveListener;
 import explame.com.imooctestone.MainActivity;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
+import explame.com.imooctestone.utils.ShareUtils;
 
 /*
  *      项目名：    ImoocTestOne
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //注册按钮
     private Button btn_register, btn_login;
     private EditText et_name, et_password;
+    private CheckBox keep_password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btn_login.setOnClickListener(this);
         et_name = (EditText) findViewById(R.id.et_name);
         et_password = (EditText) findViewById(R.id.et_password);
+        keep_password = (CheckBox) findViewById(R.id.keep_password);
+
+        //设置选中的状态
+        boolean isCheck = ShareUtils.getBoolean(this, "keeppass", false);
+        keep_password.setChecked(isCheck);
+        if (isCheck) {
+            //设置密码
+            et_name.setText(ShareUtils.getString(this, "name", ""));
+            et_password.setText(ShareUtils.getString(this, "password", ""));
+        }
+
     }
 
     @Override
@@ -86,6 +100,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
 
+        }
+    }
+
+    //假设输入用户名，但是不点击登录，而是退出
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //保存状态
+        ShareUtils.putBoolean(this, "keeppass", keep_password.isChecked());
+        //是否记住密码
+        if (keep_password.isChecked()) {
+            //记住
+            ShareUtils.putString(this, "name", et_name.getText().toString().trim());
+            ShareUtils.putString(this, "password", et_password.getText().toString().trim());
+        } else {
+            ShareUtils.deleShare(this, "name");
+            ShareUtils.deleShare(this, "password");
         }
     }
 }

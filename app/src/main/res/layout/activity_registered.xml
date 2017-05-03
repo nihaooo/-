@@ -57,12 +57,14 @@
             android:id="@+id/et_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/register_pass"/>
+            android:hint="@string/register_pass"
+            android:inputType="numberPassword"/>
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/register_repass"/>
+            android:hint="@string/register_repass"
+            android:inputType="numberPassword"/>
 
         <EditText
             android:id="@+id/et_email"
