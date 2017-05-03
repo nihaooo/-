@@ -32,7 +32,6 @@ public class RegisteredActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registered);
-
         initView();
     }
 
@@ -58,13 +57,13 @@ public class RegisteredActivity extends BaseActivity implements View.OnClickList
                 String pass = et_pass.getText().toString().trim();
                 String password = et_password.getText().toString().trim();
                 String email = et_email.getText().toString().trim();
-
                 //判断是否为空
-                if (!TextUtils.isEmpty(name) & !TextUtils.isEmpty(age) &
+                if (!TextUtils.isEmpty(name) &          //如果不是空或者""会返回false
+                        !TextUtils.isEmpty(age) &
                         !TextUtils.isEmpty(pass) &
                         !TextUtils.isEmpty(password) &
-                        !TextUtils.isEmpty(email)) {
-
+                        !TextUtils.isEmpty(email))
+                {
                     //判断两次密码是否一致
                     if (pass.equals(password)) {
 
@@ -80,8 +79,8 @@ public class RegisteredActivity extends BaseActivity implements View.OnClickList
                             }
                         });
 
-                        //判断简介是否为空
-                        if (!TextUtils.isEmpty(desc)) {
+                        //判断简介是否为空，如果简历为空，填写默认值
+                        if (TextUtils.isEmpty(desc)) {
                             desc = "这个人很懒，什么都没有留下";
                         }
 
@@ -109,16 +108,13 @@ public class RegisteredActivity extends BaseActivity implements View.OnClickList
 
                     } else {
                         Toast.makeText(this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
-
                     }
-
-
                 } else {
                     Toast.makeText(this, "输出框不能为空", Toast.LENGTH_SHORT).show();
                 }
 
-
                 break;
         }
     }
+
 }
