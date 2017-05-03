@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_register, btn_login;
     private EditText et_name, et_password;
     private CheckBox keep_password;
+    private TextView tv_forget;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             et_name.setText(ShareUtils.getString(this, "name", ""));
             et_password.setText(ShareUtils.getString(this, "password", ""));
         }
+
+        tv_forget = (TextView) findViewById(R.id.tv_forget);
+        tv_forget.setOnClickListener(this);
 
     }
 
@@ -98,6 +103,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "输入框不能为空", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.tv_forget :
+                startActivity(new Intent(this,ForgetPasswordActivity.class));
+                break;
+
 
 
         }
