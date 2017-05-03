@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,7 @@ import explame.com.imooctestone.MainActivity;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
 import explame.com.imooctestone.utils.ShareUtils;
+import explame.com.imooctestone.view.CustomDialog;
 
 /*
  *      项目名：    ImoocTestOne
@@ -32,6 +34,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_name, et_password;
     private CheckBox keep_password;
     private TextView tv_forget;
+
+    //登录进度
+    private CustomDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +66,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_forget = (TextView) findViewById(R.id.tv_forget);
         tv_forget.setOnClickListener(this);
 
+        dialog = new CustomDialog(this, 500, 500, R.layout.dialog_loding, R.style.Theme_dialog, Gravity.CENTER, R.style.pop_anim_style);
+        //屏幕外点击无效
+        dialog.setCancelable(false);
+
     }
 
     @Override
@@ -74,6 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String password = et_password.getText().toString().trim();
                 //判断是否为空
                 if (!TextUtils.isEmpty(name) & !TextUtils.isEmpty(password)) {
+                    //准备登录时，show dialog
+                    dialog.show();
                     //登录
                     final MyUser user = new MyUser();
                     user.setUsername(name);
@@ -103,12 +114,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "输入框不能为空", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.tv_forget :
-                startActivity(new Intent(this,ForgetPasswordActivity.class));
+            case R.id.tv_forget:
+                startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
-
-
-
         }
     }
 
