@@ -21,7 +21,6 @@ public class CustomDialog extends Dialog {
     public CustomDialog(Context context, int layout, int style) {
         this(context, WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT, layout, style, Gravity.CENTER);
-
     }
 
     //定义属性
@@ -41,7 +40,6 @@ public class CustomDialog extends Dialog {
     //实例
     public CustomDialog(Context context, int width, int height, int layout, int style, int gravity) {
         this(context, width, height, layout, style, gravity, R.style.pop_anim_style);
-
     }
 
 }

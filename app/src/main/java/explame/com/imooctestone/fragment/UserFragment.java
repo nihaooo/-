@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -98,7 +97,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
 
 
-        dialog = new CustomDialog(getActivity(), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+        dialog = new CustomDialog(getActivity(), 700, 1000,
                 R.layout.dialog_photo, R.style.Theme_dialog, Gravity.BOTTOM, R.style.pop_anim_style);
         //屏幕外点击无效
         dialog.setCancelable(false);
