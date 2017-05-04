@@ -1,10 +1,14 @@
 package explame.com.imooctestone.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +17,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.UpdateListener;
+import de.hdodenhof.circleimageview.CircleImageView;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
 import explame.com.imooctestone.ui.LoginActivity;
+import explame.com.imooctestone.view.CustomDialog;
 
 /*
  *      项目名：    ImoocTestOne
  *      包名：       explame.com.imooctestone.fragment
  *      时间           2017/5/2.
  *      创建者：    qzhuorui
- *      描述：        TODO
+ *      描述：        用户中心
  */
 public class UserFragment extends Fragment implements View.OnClickListener {
 
     private Button btn_exit_user, btn_update_ok;
     private TextView edit_user;
     private EditText et_username, et_sex, et_age, et_desc;
+    private CircleImageView profile_image;
+    private CustomDialog dialog;
+    private Button btn_camera, btn_picture, btn_cancel;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
@@ -62,6 +73,21 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
         btn_update_ok = (Button) view.findViewById(R.id.btn_update_ok);
         btn_update_ok.setOnClickListener(this);
+
+        profile_image = (CircleImageView) view.findViewById(R.id.profile_image);
+        profile_image.setOnClickListener(this);
+
+        dialog = new CustomDialog(getActivity(), 500, 500,
+                R.layout.dialog_photo, R.style.Theme_dialog, Gravity.BOTTOM, R.style.pop_anim_style);
+        //屏幕外点击无效
+        dialog.setCancelable(false);
+
+        btn_camera = (Button) dialog.findViewById(R.id.btn_camera);
+        btn_camera.setOnClickListener(this);
+        btn_picture = (Button) dialog.findViewById(R.id.btn_picture);
+        btn_picture.setOnClickListener(this);
+        btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(this);
     }
 
     //控制焦点
@@ -144,9 +170,88 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "输入框不能为空", Toast.LENGTH_SHORT).show();
                 }
 
-
                 break;
 
+            case R.id.profile_image:
+                dialog.show();
+                break;
+            case R.id.btn_cancel:
+                dialog.dismiss();
+                break;
+            case R.id.btn_camera:
+                toCamera();
+                break;
+            case R.id.btn_picture:
+                toPicture();
+                break;
+
+
         }
+    }
+
+    public static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
+    public static final int CAMERA_REQUEST_CODE = 100;
+    public static final int IMAGE_REQUEST_CODE = 101;
+    public static final int RESULT_REQUEST_CODE = 102;
+    private File tempFile = null;
+
+    //跳转相册
+    private void toPicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //判断内存是否可用,可用的话进行储存
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME)));
+        startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        dialog.dismiss();
+    }
+
+    //跳转相机
+    private void toCamera() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_REQUEST_CODE);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //requestCode != 0
+        if (requestCode != getActivity().RESULT_CANCELED) {
+            switch (requestCode) {
+                //相册数据
+                case IMAGE_REQUEST_CODE:
+                    data.getData();
+                    startPhotoZoom(data.getData());
+                    break;
+                //相机数据
+                case CAMERA_REQUEST_CODE:
+                    tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
+                    startPhotoZoom(Uri.fromFile(tempFile));
+                    break;
+                case RESULT_REQUEST_CODE:
+
+                    break;
+
+            }
+        }
+    }
+
+    //裁剪
+    private void startPhotoZoom(Uri uri) {
+        if (uri == null) {
+            return;
+        }
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //设置裁剪
+        intent.putExtra("crop", "true");
+        //裁剪宽高
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //裁剪图片质量
+        intent.putExtra("outputX", 320);
+        intent.putExtra("outputY", 320);
+        startActivityForResult(intent, RESULT_REQUEST_CODE);
+
     }
 }

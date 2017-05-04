@@ -2,10 +2,14 @@
     <string name="app_name">ImoocTestOne</string>
     <string name="text_setting">设置</string>
     <string name="pager_three">进入主页</string>
+    <!--登陆界面 -->
+    <string name="login_mindpass1">记住密码</string>
+    <string name="login_mindpass2">忘记密码</string>
     <string name="et_username">用户名</string>
     <string name="et_userpass">密码</string>
     <string name="btn_login">登录</string>
     <string name="btn_register">注册</string>
+    <!--注册界面 -->
     <string name="register_desc">简介</string>
     <string name="register_email">邮箱</string>
     <string name="regiser_hint">注册成功需要前往邮箱验证，否则无法登陆</string>
@@ -15,7 +19,23 @@
     <string name="register_woman">女</string>
     <string name="register_pass">密码</string>
     <string name="register_repass">再输一次</string>
-    <string name="login_mindpass1">记住密码</string>
-    <string name="login_mindpass2">忘记密码</string>
+    <!--Dialog动画 -->
     <string name="text_now_login">正在登录</string>
+    <!--用户中心 -->
+    <string name="user_btn_rewrite">编辑资料</string>
+    <string name="user_tv_name">姓名：</string>
+    <string name="user_tv_sex">性别：</string>
+    <string name="user_tv_age">年齡：</string>
+    <string name="user_tv_desc">简介：</string>
+    <string name="user_btn_update_ok">确定修改</string>
+    <string name="user_tv_find_location">归属地查询</string>
+    <string name="user_btn_exit_user">退出登陆</string>
+    <!--忘记密码 -->
+    <string name="forget_tv_hint">修改密码</string>
+    <string name="forget_et_nowpass">旧密码</string>
+    <string name="forget_et_newpass">新密码</string>
+    <string name="forget_et_rewritepass">再次输入密码</string>
+    <string name="forget_btn_rewritepass">修改密码</string>
+    <string name="forget_tv_hint_two">忘记密码</string>
+    <string name="forget_et_email">邮箱</string>
 </resources>

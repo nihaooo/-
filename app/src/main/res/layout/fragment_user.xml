@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,13 +14,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:background="@drawable/user_photo_bg"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/add_pic"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp"/>
 
             <TextView
                 android:id="@+id/edit_user"
@@ -28,7 +33,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button_bg"
                 android:gravity="center"
-                android:text="编辑资料"
+                android:text="@string/user_btn_rewrite"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"/>
 
@@ -45,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="姓名："
+                android:text="@string/user_tv_name"
                 android:textSize="20sp"/>
 
             <EditText
@@ -67,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性别："
+                android:text="@string/user_tv_sex"
                 android:textSize="20sp"/>
 
             <EditText
@@ -88,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="年齡："
+                android:text="@string/user_tv_age"
                 android:textSize="20sp"/>
 
             <EditText
@@ -109,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="简介："
+                android:text="@string/user_tv_desc"
                 android:textSize="20sp"/>
 
             <EditText
@@ -127,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button_bg"
-            android:text="确定修改"
+            android:text="@string/user_btn_update_ok"
             android:textColor="@android:color/white"
             android:visibility="gone"/>
 
@@ -143,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="归属地查询"
+            android:text="@string/user_tv_find_location"
             android:textSize="20sp"/>
 
         <View
@@ -160,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button_bg"
-            android:text="退出登陆"
+            android:text="@string/user_btn_exit_user"
             android:textColor="@android:color/white"/>
 
     </LinearLayout>

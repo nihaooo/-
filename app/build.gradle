@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'cn.bmob.android:bmob-sdk:3.4.5'
     compile 'cn.bmob.android:http-legacy:1.0'
-
+    //CircleImageView
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }
