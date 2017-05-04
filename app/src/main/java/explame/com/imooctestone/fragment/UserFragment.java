@@ -1,6 +1,9 @@
 package explame.com.imooctestone.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -8,15 +11,19 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import cn.bmob.v3.BmobUser;
@@ -25,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
 import explame.com.imooctestone.ui.LoginActivity;
+import explame.com.imooctestone.utils.ShareUtils;
 import explame.com.imooctestone.view.CustomDialog;
 
 /*
@@ -77,7 +85,20 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         profile_image = (CircleImageView) view.findViewById(R.id.profile_image);
         profile_image.setOnClickListener(this);
 
-        dialog = new CustomDialog(getActivity(), 500, 500,
+        //1.拿到String
+        String imgString = ShareUtils.getString(getActivity(), "image_title", "");
+        if (!imgString.equals("")) {
+            //2.利用Base64将String转化
+            byte[] byteArray = Base64.decode(imgString, Base64.DEFAULT);
+            ByteArrayInputStream byStream = new ByteArrayInputStream(byteArray);
+            //3.生成bitmap
+            Bitmap bitmap = BitmapFactory.decodeStream(byStream);
+            profile_image.setImageBitmap(bitmap);
+
+        }
+
+
+        dialog = new CustomDialog(getActivity(), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
                 R.layout.dialog_photo, R.style.Theme_dialog, Gravity.BOTTOM, R.style.pop_anim_style);
         //屏幕外点击无效
         dialog.setCancelable(false);
@@ -179,10 +200,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 dialog.dismiss();
                 break;
             case R.id.btn_camera:
-                toCamera();
+                toPicture();
                 break;
             case R.id.btn_picture:
-                toPicture();
+                toCamera();
                 break;
 
 
@@ -220,8 +241,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             switch (requestCode) {
                 //相册数据
                 case IMAGE_REQUEST_CODE:
-                    data.getData();
-                    startPhotoZoom(data.getData());
+                    if (data != null) {
+                        data.getData();
+                        startPhotoZoom(data.getData());
+                    }
                     break;
                 //相机数据
                 case CAMERA_REQUEST_CODE:
@@ -229,6 +252,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     startPhotoZoom(Uri.fromFile(tempFile));
                     break;
                 case RESULT_REQUEST_CODE:
+                    //有可能点击舍弃
+                    if (data != null) {
+                        //拿到图片设置
+                        setImageToView(data);
+                        //既然已经设置图片，原生的就应该删除
+                        if (tempFile != null) {
+                            tempFile.delete();
+                        }
+                    }
 
                     break;
 
@@ -251,7 +283,33 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         //裁剪图片质量
         intent.putExtra("outputX", 320);
         intent.putExtra("outputY", 320);
+        //发送数据
+        intent.putExtra("return-data", true);
         startActivityForResult(intent, RESULT_REQUEST_CODE);
+    }
 
+    //设置图片
+    private void setImageToView(Intent data) {
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+            Bitmap bitmap = bundle.getParcelable("data");
+            profile_image.setImageBitmap(bitmap);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //保存
+        BitmapDrawable drawable = (BitmapDrawable) profile_image.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        //1.将bitmap压缩成字节数据输出流
+        ByteArrayOutputStream byStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byStream);
+        //2.利用Base64将字节数组输出流转化成String
+        byte[] byteArray = byStream.toByteArray();
+        String imgString = new String(Base64.encodeToString(byteArray, Base64.DEFAULT));
+        //3.将String保存在ShareUtiles
+        ShareUtils.putString(getActivity(), "image_title", imgString);
     }
 }
