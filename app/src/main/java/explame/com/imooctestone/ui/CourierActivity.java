@@ -12,7 +12,16 @@ import android.widget.Toast;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import explame.com.imooctestone.R;
+import explame.com.imooctestone.adapter.CourierAdapter;
+import explame.com.imooctestone.entity.CourierData;
 import explame.com.imooctestone.utils.L;
 import explame.com.imooctestone.utils.StaticClass;
 
@@ -28,6 +37,8 @@ public class CourierActivity extends BaseActivity implements View.OnClickListene
     private EditText et_name, et_number;
     private Button btn_get_courier;
     private ListView mListView;
+
+    private List<CourierData> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +86,8 @@ public class CourierActivity extends BaseActivity implements View.OnClickListene
                         public void onSuccess(String t) {
                             Toast.makeText(CourierActivity.this, t, Toast.LENGTH_SHORT).show();
                             L.i("Json:" + t);
+                            //4.解析Json
+                            parsingJson(t);
                         }
                     });
 
@@ -85,5 +98,28 @@ public class CourierActivity extends BaseActivity implements View.OnClickListene
 
                 break;
         }
+    }
+
+    //解析数据
+    private void parsingJson(String t) {
+        try {
+            JSONObject jsonObject = new JSONObject(t);
+            JSONObject jsonresult = jsonObject.getJSONObject("result");
+            JSONArray jsonArray = jsonresult.getJSONArray("list");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject json = (JSONObject) jsonArray.get(i);
+
+                CourierData data = new CourierData();
+                data.setRemark(json.getString("remark"));
+                data.setZone(json.getString("zone"));
+                data.setDatetime(json.getString("datetime"));
+                mList.add(data);
+            }
+            CourierAdapter adapter = new CourierAdapter(this, mList);
+            mListView.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
