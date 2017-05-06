@@ -51,6 +51,9 @@
         <!-- 忘记密码-->
         <activity android:name=".ui.ForgetPasswordActivity"
                   android:label="忘记密码"/>
+        <!--查询快递 -->
+        <activity android:name=".ui.CourierActivity"
+                  android:label="快递查询"/>
 
     </application>
 

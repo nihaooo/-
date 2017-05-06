@@ -136,6 +136,14 @@
             android:textColor="@android:color/white"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/tv_courier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/user_tv_find_wuliu"
+            android:textSize="20sp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

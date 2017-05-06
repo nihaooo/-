@@ -30,6 +30,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
+import explame.com.imooctestone.ui.CourierActivity;
 import explame.com.imooctestone.ui.LoginActivity;
 import explame.com.imooctestone.utils.ShareUtils;
 import explame.com.imooctestone.view.CustomDialog;
@@ -49,6 +50,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private CircleImageView profile_image;
     private CustomDialog dialog;
     private Button btn_camera, btn_picture, btn_cancel;
+    private TextView tv_courier;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
@@ -108,6 +110,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btn_picture.setOnClickListener(this);
         btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener(this);
+
+        tv_courier = (TextView) view.findViewById(R.id.tv_courier);
+        tv_courier.setOnClickListener(this);
     }
 
     //控制焦点
@@ -204,7 +209,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_picture:
                 toCamera();
                 break;
-
+            case R.id.tv_courier :
+                startActivity(new Intent(getActivity(),CourierActivity.class));
+                break;
 
         }
     }

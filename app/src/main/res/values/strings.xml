@@ -38,4 +38,5 @@
     <string name="forget_btn_rewritepass">修改密码</string>
     <string name="forget_tv_hint_two">忘记密码</string>
     <string name="forget_et_email">邮箱</string>
+    <string name="user_tv_find_wuliu">物流查询</string>
 </resources>

@@ -16,4 +16,15 @@ public class StaticClass {
 
     //Bmob key
     public static final String BMOB_APP_ID = "5cc8d7ac557e6360af159345664c4174";
+
+    //快递key
+    public static final String COURIER_KEY = "cd4d91dd0f2eddb9a2e5c43fd0ad67fe";
+    /**
+     * 请求示例：http://v.juhe.cn/exp/index?key=key&com=sf&no=575677355677
+     *
+     * http://v.juhe.cn/exp/index?key=cd4d91dd0f2eddb9a2e5c43fd0ad67fe&com=ems&no=1186465887499
+     *
+     *  http://v.juhe.cn/exp/index?key=cd4d91dd0f2eddb9a2e5c43fd0ad67fe&com=sf&no=575677355677
+     */
+
 }
