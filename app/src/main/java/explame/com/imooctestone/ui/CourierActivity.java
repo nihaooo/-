@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import explame.com.imooctestone.R;
@@ -115,6 +116,8 @@ public class CourierActivity extends BaseActivity implements View.OnClickListene
                 data.setDatetime(json.getString("datetime"));
                 mList.add(data);
             }
+            //倒序
+            Collections.reverse(mList);
             CourierAdapter adapter = new CourierAdapter(this, mList);
             mListView.setAdapter(adapter);
         } catch (JSONException e) {
