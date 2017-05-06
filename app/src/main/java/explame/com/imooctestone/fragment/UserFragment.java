@@ -32,6 +32,7 @@ import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.MyUser;
 import explame.com.imooctestone.ui.CourierActivity;
 import explame.com.imooctestone.ui.LoginActivity;
+import explame.com.imooctestone.ui.PhoneActivity;
 import explame.com.imooctestone.utils.ShareUtils;
 import explame.com.imooctestone.view.CustomDialog;
 
@@ -50,7 +51,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private CircleImageView profile_image;
     private CustomDialog dialog;
     private Button btn_camera, btn_picture, btn_cancel;
+    //快递查询
     private TextView tv_courier;
+    //归属地查询
+    private TextView tv_phone;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
@@ -113,6 +117,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
         tv_courier = (TextView) view.findViewById(R.id.tv_courier);
         tv_courier.setOnClickListener(this);
+        tv_phone = (TextView) view.findViewById(R.id.tv_phone);
+        tv_phone.setOnClickListener(this);
     }
 
     //控制焦点
@@ -212,7 +218,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.tv_courier :
                 startActivity(new Intent(getActivity(),CourierActivity.class));
                 break;
-
+            case R.id.tv_phone :
+                startActivity(new Intent(getActivity(),PhoneActivity.class));
+                break;
         }
     }
 
