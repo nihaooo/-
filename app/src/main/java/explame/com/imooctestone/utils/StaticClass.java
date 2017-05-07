@@ -21,10 +21,13 @@ public class StaticClass {
     public static final String COURIER_KEY = "cd4d91dd0f2eddb9a2e5c43fd0ad67fe";
     /**
      * 请求示例：http://v.juhe.cn/exp/index?key=key&com=sf&no=575677355677
-     *
+     * <p>
      * http://v.juhe.cn/exp/index?key=cd4d91dd0f2eddb9a2e5c43fd0ad67fe&com=ems&no=1186465887499
-     *
-     *  http://v.juhe.cn/exp/index?key=cd4d91dd0f2eddb9a2e5c43fd0ad67fe&com=sf&no=575677355677
+     * <p>
+     * http://v.juhe.cn/exp/index?key=cd4d91dd0f2eddb9a2e5c43fd0ad67fe&com=sf&no=575677355677
      */
+
+    //归属地key
+    public static final String PHONE_KEY = "d09f0aa2699869fe2852a4037df93ec5";
 
 }
