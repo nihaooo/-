@@ -1,11 +1,13 @@
 package explame.com.imooctestone.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.kymjs.rxvolley.RxVolley;
@@ -21,6 +23,8 @@ import java.util.List;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.adapter.WeChatAdapter;
 import explame.com.imooctestone.entity.WeChatData;
+import explame.com.imooctestone.ui.WebViewActivity;
+import explame.com.imooctestone.utils.L;
 import explame.com.imooctestone.utils.StaticClass;
 
 /*
@@ -34,6 +38,12 @@ public class WeChatFragment extends Fragment {
 
     private ListView mListView;
     private List<WeChatData> mList = new ArrayList<>();
+
+    //存储title
+    private List<String> mListTitle = new ArrayList<>();
+    //存储新闻地址
+    private List<String> mListUrl = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -55,6 +65,27 @@ public class WeChatFragment extends Fragment {
                 prasingJson(t);
             }
         });
+
+        //点击事件
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                L.i("position :" + position);
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("title", mListTitle.get(position));
+                intent.putExtra("url", mListUrl.get(position));
+                startActivity(intent);
+
+                /**
+                 * intent两种方法传值
+                 *
+                 * Bundle bundle = new Bundle();
+                 * bundle.putString("key","value");
+                 * intent.putExtras(bundle);
+                 */
+
+            }
+        });
     }
 
     private void prasingJson(String t) {
@@ -65,10 +96,18 @@ public class WeChatFragment extends Fragment {
             for (int i = 0; i < jsonList.length(); i++) {
                 JSONObject json = (JSONObject) jsonList.get(i);
                 WeChatData data = new WeChatData();
-                data.setTitle(json.getString("title"));
-                data.setSource(json.getString("source"));
+                String title = json.getString("title");
+                String url = json.getString("url");
+
+                data.setSource(title);
                 data.setImgUrl(json.getString("firstImg"));
+
                 mList.add(data);
+
+                //保存信息
+                mListTitle.add(title);
+                mListUrl.add(url);
+
             }
             WeChatAdapter adapter = new WeChatAdapter(getActivity(), mList);
             mListView.setAdapter(adapter);

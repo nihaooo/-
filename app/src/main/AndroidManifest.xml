@@ -57,7 +57,8 @@
         <!--归属地查询 -->
         <activity android:name=".ui.PhoneActivity"
                   android:label="归属地查询"/>
-
+        <!--微信精选详情 -->
+        <activity android:name=".ui.WebViewActivity"/>
     </application>
 
 </manifest>
