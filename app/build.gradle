@@ -35,4 +35,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //RxVolley
     compile 'com.kymjs.rxvolley:rxvolley:1.1.0'
+    //Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

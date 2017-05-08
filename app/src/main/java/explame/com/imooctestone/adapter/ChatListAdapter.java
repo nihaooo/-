@@ -108,7 +108,6 @@ public class ChatListAdapter extends BaseAdapter {
     }
 
     //返回所有的layout数据
-
     @Override
     public int getViewTypeCount() {
         return 3;//mList.size +1

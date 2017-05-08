@@ -30,7 +30,13 @@ public class StaticClass {
     //归属地key
     public static final String PHONE_KEY = "d09f0aa2699869fe2852a4037df93ec5";
 
+    //问答机器人key
+    public static final String CHAT_LIST_KEY = "7a48539921338ef90866922b21e25f6d";
+
     //微信精选key
     public static final String WECHAT_KEY = "78f723dccf85aea324a3cf0daac97f35";
+
+    //妹子接口
+    public static final String GIRL_URL = "http://gank.io/api/search/query/listview/category/福利/count/50/page/1";
 
 }
