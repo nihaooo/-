@@ -30,4 +30,7 @@ public class StaticClass {
     //归属地key
     public static final String PHONE_KEY = "d09f0aa2699869fe2852a4037df93ec5";
 
+    //微信精选key
+    public static final String WECHAT_KEY = "78f723dccf85aea324a3cf0daac97f35";
+
 }
