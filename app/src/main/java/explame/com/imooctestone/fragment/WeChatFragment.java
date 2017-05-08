@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import explame.com.imooctestone.R;
 
@@ -17,6 +18,9 @@ import explame.com.imooctestone.R;
  *      描述：        TODO
  */
 public class WeChatFragment extends Fragment {
+
+    private ListView mListView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
