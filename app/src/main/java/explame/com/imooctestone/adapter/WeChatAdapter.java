@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import java.util.List;
 
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.entity.WeChatData;
+import explame.com.imooctestone.utils.L;
+import explame.com.imooctestone.utils.PicassoUtils;
 
 /*
  *      项目名：    ImoocTestOne
@@ -26,12 +29,18 @@ public class WeChatAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<WeChatData> mList;
     private WeChatData data;
+    private int width,height;
+    private WindowManager wm;
 
     public WeChatAdapter(Context mContext, List<WeChatData> mList) {
         this.mContext = mContext;
         this.mList = mList;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        width = wm.getDefaultDisplay().getWidth();
+        height = wm.getDefaultDisplay().getHeight();
+        L.i("width" + width + "height " +height);
     }
 
     @Override
@@ -66,6 +75,11 @@ public class WeChatAdapter extends BaseAdapter {
         data = mList.get(position);
         viewHolder.tv_title.setText(data.getTitle());
         viewHolder.tv_source.setText(data.getSource());
+
+        //加载图片
+//        Picasso.with(mContext).load(data.getImgUrl()).into(viewHolder.iv_img);
+//        PicassoUtils.loadImgView(mContext,data.getImgUrl(),viewHolder.iv_img);
+        PicassoUtils.loadImgViewSize(mContext,data.getImgUrl(),width/3,200,viewHolder.iv_img);
 
         return convertView;
     }
