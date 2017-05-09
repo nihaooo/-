@@ -70,6 +70,7 @@ public class GirlFragment extends Fragment {
     }
 
     private void findView(View view) {
+        L.i("请求到的Girl数据：" );
         mGridVIew = (GridView) view.findViewById(R.id.mGridView);
 
         //初始化提示框
