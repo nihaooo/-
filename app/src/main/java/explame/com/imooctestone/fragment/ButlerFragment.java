@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 
@@ -24,6 +28,7 @@ import java.util.List;
 import explame.com.imooctestone.R;
 import explame.com.imooctestone.adapter.ChatListAdapter;
 import explame.com.imooctestone.entity.ChatListData;
+import explame.com.imooctestone.utils.ShareUtils;
 import explame.com.imooctestone.utils.StaticClass;
 
 /*
@@ -47,6 +52,10 @@ public class ButlerFragment extends Fragment implements View.OnClickListener {
     //全局
     private ChatListAdapter adapter;
 
+    //TTS语音识别
+    private SpeechSynthesizer mTts;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +65,15 @@ public class ButlerFragment extends Fragment implements View.OnClickListener {
     }
 
     private void findview(View view) {
+
+        mTts = SpeechSynthesizer.createSynthesizer(getActivity(), null);
+        // 2.合成参数设置，详见《科大讯飞MSC API手册(Android)》SpeechSynthesizer 类
+        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoqi");// 设置发音人
+        mTts.setParameter(SpeechConstant.SPEED, "50");// 设置语速
+        mTts.setParameter(SpeechConstant.VOLUME, "80");// 设置音量，范围0~100
+        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); // 设置云端
+
+
         mChatListView = (ListView) view.findViewById(R.id.mChatListView);
         et_text = (EditText) view.findViewById(R.id.et_text);
         btn_send = (Button) view.findViewById(R.id.btn_send);
@@ -137,6 +155,11 @@ public class ButlerFragment extends Fragment implements View.OnClickListener {
 
     //添加左边文本
     private void addLeftItem(String text) {
+        boolean isSpeak = ShareUtils.getBoolean(getActivity(), "isSpeak", false);
+        if (isSpeak) {
+            startSpeak(text);
+        }
+
         ChatListData date = new ChatListData();
         date.setType(ChatListAdapter.VALUE_LEFT_TEXT);
         date.setText(text);
@@ -147,7 +170,7 @@ public class ButlerFragment extends Fragment implements View.OnClickListener {
         mChatListView.setSelection(mChatListView.getBottom());
     }
 
-    //添加左边文本
+    //添加右边文本
     private void addRightItem(String text) {
         ChatListData date = new ChatListData();
         date.setType(ChatListAdapter.VALUE_RIGHT_TEXT);
@@ -158,4 +181,63 @@ public class ButlerFragment extends Fragment implements View.OnClickListener {
         //滚动到底部
         mChatListView.setSelection(mChatListView.getBottom());
     }
+
+    //开始说话
+    private void startSpeak(String text) {
+        //开始合成
+        mTts.startSpeaking(text, mSynListener);
+    }
+
+    // 合成监听器
+    private SynthesizerListener mSynListener = new SynthesizerListener() {
+
+        //缓冲回调
+        @Override
+        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+
+        }
+
+        //会话结束回调接口，没有错误时，error为null
+        @Override
+        public void onCompleted(SpeechError error) {
+
+        }
+
+        //会话事件回调接口
+        @Override
+        public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+            // TODO Auto-generated method stub
+
+        }
+
+        //开始播放
+        @Override
+        public void onSpeakBegin() {
+            // TODO Auto-generated method stub
+
+        }
+
+        //暂停播放
+        @Override
+        public void onSpeakPaused() {
+            // TODO Auto-generated method stub
+
+        }
+
+        //播放进度回调
+        @Override
+        public void onSpeakProgress(int arg0, int arg1, int arg2) {
+            // TODO Auto-generated method stub
+
+        }
+
+        //回复播放回调接口
+        @Override
+        public void onSpeakResumed() {
+            // TODO Auto-generated method stub
+
+        }
+
+    };
+
 }
