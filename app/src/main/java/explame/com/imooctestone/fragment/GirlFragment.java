@@ -75,7 +75,7 @@ public class GirlFragment extends Fragment {
         //初始化提示框
         dialog = new CustomDialog(getActivity(), LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT, R.layout.dialog_girl,
-                R.style.pop_anim_style, Gravity.CENTER);
+                R.style.Theme_dialog, Gravity.CENTER,R.style.pop_anim_style);
 
         iv_img = (ImageView) dialog.findViewById(R.id.iv_img);
 
