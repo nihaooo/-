@@ -126,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dialog.dismiss();
         //保存状态
         ShareUtils.putBoolean(this, "keeppass", keep_password.isChecked());
         //是否记住密码

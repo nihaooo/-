@@ -38,5 +38,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_pets_white_24dp"/>
 </RelativeLayout>

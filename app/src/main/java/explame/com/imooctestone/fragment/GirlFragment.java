@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,6 @@ import explame.com.imooctestone.R;
 import explame.com.imooctestone.adapter.GridAdapter;
 import explame.com.imooctestone.entity.GirdData;
 import explame.com.imooctestone.utils.L;
-import explame.com.imooctestone.utils.StaticClass;
 
 /*
  *      项目名：    ImoocTestOne
@@ -46,18 +47,27 @@ public class GirlFragment extends Fragment {
     private void findView(View view) {
         mGridVIew = (GridView) view.findViewById(R.id.mGridView);
 
+        //接口不能出现中文字，所有我们要对福利这两个字进行转码
+        String welfare = null;
+        try {
+            //Gank升级 需要转码
+            welfare = URLEncoder.encode(getString(R.string.text_welfare), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://gank.io/api/search/query/listview/category/" + welfare + "/count/50/page/1";
         //解析
-        RxVolley.get(StaticClass.GIRL_URL, new HttpCallback() {
+        RxVolley.get(url, new HttpCallback() {
             @Override
             public void onSuccess(String t) {
-
-                L.i("json:" + t);
-                parsing(t);
+                L.i("请求到的Girl数据：" + t);
+                parsingJson(t);
             }
         });
     }
 
-    private void parsing(String t) {
+    private void parsingJson(String t) {
         try {
             JSONObject jsonObject = new JSONObject(t);
             JSONArray jsonresult = jsonObject.getJSONArray("results");

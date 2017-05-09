@@ -72,8 +72,6 @@ public class GridAdapter extends BaseAdapter {
 
         PicassoUtils.loadImgViewSize(mContext, url, width / 2, 500, viewHolder.imageView);
 
-
-
         return convertView;
     }
 

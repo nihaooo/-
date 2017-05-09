@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
@@ -151,7 +150,7 @@ public class PhoneActivity extends BaseActivity implements View.OnClickListener 
         RxVolley.get(url, new HttpCallback() {
             @Override
             public void onSuccess(String t) {
-                Toast.makeText(PhoneActivity.this, "结果" + t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PhoneActivity.this, "结果" + t, Toast.LENGTH_SHORT).show();
                 L.i("phone:" + t);
                 parsingJson(t);
             }
@@ -198,6 +197,15 @@ public class PhoneActivity extends BaseActivity implements View.OnClickListener 
                     iv_company.setBackgroundResource(R.drawable.china_ubicom);
                     break;
                 case "中国电信":
+                    iv_company.setBackgroundResource(R.drawable.china_telecom);
+                    break;
+                case "移动":
+                    iv_company.setBackgroundResource(R.drawable.china_moblie);
+                    break;
+                case "联通":
+                    iv_company.setBackgroundResource(R.drawable.china_ubicom);
+                    break;
+                case "电信":
                     iv_company.setBackgroundResource(R.drawable.china_telecom);
                     break;
 
