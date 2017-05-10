@@ -25,6 +25,9 @@
     <!--读取联系人权限，上传联系人需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
+    <!--短信权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -66,6 +69,9 @@
                   android:label="归属地查询"/>
         <!--微信精选详情 -->
         <activity android:name=".ui.WebViewActivity"/>
+        <!--短信服务 -->
+        <service android:name=".service.SmsService"/>
+
     </application>
 
 </manifest>
