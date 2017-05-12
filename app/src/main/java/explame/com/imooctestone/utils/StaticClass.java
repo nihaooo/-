@@ -45,4 +45,6 @@ public class StaticClass {
     //短信Action
     public static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
+    //版本更新
+    public static final String CHECK_UPDATE_URL = "http://172.17.216.176:8080/qzhuorui/config.json";
 }
